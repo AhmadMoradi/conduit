@@ -4,6 +4,9 @@ const colors = {
     2: "var(--gray-2)",
     3: "var(--gray-3)",
   },
+  green: {
+    1: "var(--green-1)",
+  },
 };
 
 /** @type {import('tailwindcss').Config} */
