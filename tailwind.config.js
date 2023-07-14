@@ -1,3 +1,11 @@
+const colors = {
+  gray: {
+    1: "var(--gray-1)",
+    2: "var(--gray-2)",
+    3: "var(--gray-3)",
+  },
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -10,7 +18,12 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+    },
+    extend: {
+      colors,
+    },
   },
   plugins: [],
 };

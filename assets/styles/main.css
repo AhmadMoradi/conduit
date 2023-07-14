@@ -1,1 +1,6 @@
 @import "./tailwind.css";
+@import "./variables.css";
+
+body {
+  color: var(--black-1);
+}
