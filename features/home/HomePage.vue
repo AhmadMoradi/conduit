@@ -4,12 +4,12 @@
     <div v-if="pending">Loading articles...</div>
     <div v-else>
       <div>
-        <ArticlePost v-for="article in data?.articles" :key="article.id" />
+        <ArticlePost v-for="article in data?.articles" :key="article.title" />
       </div>
       <Pagination
         v-model="currentPage"
-        :totalPages="data?.articlesCount"
         :itemsPerPage="itemsPerPage"
+        :totalItems="data?.articlesCount"
       />
     </div>
   </div>
@@ -24,15 +24,14 @@ import articleService from "~/services/articles";
 
 const itemsPerPage = 10;
 const currentPage = ref<number>(1);
-
-const offset = computed<number>(() => {
-  return (currentPage.value - 1) * itemsPerPage;
+const query = computed(() => {
+  return {
+    limit: itemsPerPage,
+    offset: (currentPage.value - 1) * itemsPerPage,
+  };
 });
 
-const query = reactive({
-  limit: 10,
-  offset: offset.value,
-});
-
-const { data, error, pending } = await articleService.fetchArticles(query);
+const { data, error, pending } = await articleService.fetchArticles(
+  query.value
+);
 </script>
