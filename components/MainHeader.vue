@@ -1,6 +1,6 @@
 <template>
-  <header class="container px-4 py-2 flex items-center justify-between">
-    <span class="text-2xl font-bold"> conduit </span>
+  <header class="container px-4 py-3 flex items-center justify-between">
+    <span class="text-2xl font-bold text-green-1"> conduit </span>
 
     <nav class="text-gray-1">
       <NuxtLink class="hover:text-gray-2" to="/">Home</NuxtLink>
@@ -16,6 +16,8 @@
 
 <style lang="postcss" scoped>
 nav a {
+  padding: 0.425rem;
+
   & + a {
     margin-left: 1rem;
   }
