@@ -1,5 +1,6 @@
 @import "./tailwind.css";
 @import "./variables.css";
+@import "./components.css";
 
 body {
   color: var(--black-1);

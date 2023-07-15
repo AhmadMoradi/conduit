@@ -1,5 +1,6 @@
 :root {
-  --black-1: #373a3c;  
+  --black-1: #373a3c;
+  --gray-0: rgba(0, 0, 0, 0.15);
   --gray-1: rgba(0, 0, 0, 0.3);
   --gray-2: rgba(0, 0, 0, 0.6);
   --gray-3: rgba(0, 0, 0, 0.8);
@@ -7,6 +8,7 @@
   --gray-5: #aaa;
   --gray-6: #818a91;
   --gray-7: #f3f3f3;
-
+  --gray-9: #55595c;
   --green-1: #5cb85c;
+  --blue-1: #66afe9;
 }
