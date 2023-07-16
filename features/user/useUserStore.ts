@@ -11,6 +11,7 @@ interface User {
   token: string;
   isLogingIn: boolean;
   isRegistering: boolean;
+  isLoadingUser: boolean;
 }
 
 export const useUserStore = defineStore("user", () => {
@@ -22,9 +23,23 @@ export const useUserStore = defineStore("user", () => {
     token: "",
     isLogingIn: false,
     isRegistering: false,
+    isLoadingUser: true,
   };
 
   const user = reactive<User>({ ...defaultUser });
+
+  const isUserLogin = computed(() => user.token);
+
+  async function initialize() {
+    user.isLoadingUser = true;
+    const token = localStorage.getItem("token");
+    if (token) {
+      user.token = token;
+      const { data, error } = await userService.getUser();
+      Object.assign(user, data.value?.user);
+    }
+    user.isLoadingUser = true;
+  }
 
   async function login(payload: LoginPayload) {
     user.isLogingIn = true;
@@ -68,6 +83,9 @@ export const useUserStore = defineStore("user", () => {
   }
 
   return {
+    user,
+    isUserLogin,
+    initialize,
     login,
     register,
     logout,

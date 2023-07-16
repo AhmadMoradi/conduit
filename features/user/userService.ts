@@ -5,7 +5,11 @@ function loginUser(payload: LoginPayload) {
     user: User;
   };
 
-  return useFetcher<LoginAPIResponse>("/users/login", {
+  return useFetcher<{
+    user: {
+      user: User;
+    };
+  }>("/users/login", {
     method: "POST",
     body: {
       user: payload,
@@ -18,11 +22,9 @@ async function registerUser(payload: {
   password: string;
   username: string;
 }) {
-  type RegisterAPIResponse = {
+  return useFetcher<{
     user: User;
-  };
-
-  return await useFetcher<RegisterAPIResponse>("/users", {
+  }>("/users", {
     method: "POST",
     body: {
       user: payload,
@@ -30,7 +32,14 @@ async function registerUser(payload: {
   });
 }
 
+async function getUser() {
+  return useFetcher<{
+    user: User;
+  }>("/user");
+}
+
 export default {
   loginUser,
   registerUser,
+  getUser,
 };
