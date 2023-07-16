@@ -1,9 +1,11 @@
-function registerUser(payload: {
-  email: string;
-  password: string;
-  username: string;
-}) {
-  return useFetcher("/users", {
+import type { LoginPayload, User } from "./types";
+
+function loginUser(payload: LoginPayload) {
+  type LoginAPIResponse = {
+    user: User;
+  };
+
+  return useFetcher<LoginAPIResponse>("/users/login", {
     method: "POST",
     body: {
       user: payload,
@@ -11,8 +13,16 @@ function registerUser(payload: {
   });
 }
 
-function loginUser(payload: { username: string; password: string }) {
-  return useFetcher("/users/login", {
+async function registerUser(payload: {
+  email: string;
+  password: string;
+  username: string;
+}) {
+  type RegisterAPIResponse = {
+    user: User;
+  };
+
+  return await useFetcher<RegisterAPIResponse>("/users", {
     method: "POST",
     body: {
       user: payload,
@@ -21,6 +31,6 @@ function loginUser(payload: { username: string; password: string }) {
 }
 
 export default {
-  registerUser,
   loginUser,
+  registerUser,
 };

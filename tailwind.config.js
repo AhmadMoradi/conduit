@@ -15,6 +15,9 @@ const colors = {
   green: {
     1: "var(--green-1)",
   },
+  red: {
+    1: "var(--red-1)",
+  },
 };
 
 /** @type {import('tailwindcss').Config} */
