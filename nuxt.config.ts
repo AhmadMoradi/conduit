@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   css: ["~/assets/styles/main.css"],
   devtools: { enabled: true },
+  modules:[
+    '@pinia/nuxt'
+  ],
   postcss: {
     plugins: {
       "tailwindcss/nesting": {},
