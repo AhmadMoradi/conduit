@@ -9,9 +9,6 @@ interface User {
   bio: string | null;
   image: string;
   token: string;
-  isLogingIn: boolean;
-  isRegistering: boolean;
-  isLoadingUser: boolean;
 }
 
 export const useUserStore = defineStore("user", () => {
@@ -21,32 +18,26 @@ export const useUserStore = defineStore("user", () => {
     bio: null,
     image: "",
     token: "",
-    isLogingIn: false,
-    isRegistering: false,
-    isLoadingUser: true,
   };
 
   const user = reactive<User>({ ...defaultUser });
+  const token = useCookie<string>("");
 
-  const isUserLogin = computed(() => user.token);
+  const isUserLogin = computed(() => token.value);
 
   async function initialize() {
-    user.isLoadingUser = true;
-    const token = localStorage.getItem("token");
-    if (token) {
-      user.token = token;
-      const { data, error } = await userService.getUser();
-      Object.assign(user, data.value?.user);
+    if (token.value) {
+      user.token = token.value;
+      await userService.getUser().then((data) => {
+        Object.assign(user, data?.user);
+      });
     }
-    user.isLoadingUser = true;
   }
 
   async function login(payload: LoginPayload) {
-    user.isLogingIn = true;
     const { data, error } = await userService.loginUser(payload);
-    if (!error.value) {
-      Object.assign(user, data.value?.user);
-      user.isLogingIn = false;
+    if (!error) {
+      Object.assign(user, data);
       storeToken();
       navigateTo("/");
     }
@@ -58,23 +49,21 @@ export const useUserStore = defineStore("user", () => {
     password: string;
     email: string;
   }) {
-    user.isRegistering = true;
     const { data, error } = await userService.registerUser(payload);
     if (!error.value) {
-      Object.assign(user, data.value?.user);
+      Object.assign(user, data?.user);
       storeToken();
       navigateTo("/");
     }
-    user.isRegistering = false;
     return { data, error };
   }
 
   function storeToken() {
-    localStorage.setItem("token", user.token);
+    token.value = user.token;
   }
 
   function removeToken() {
-    localStorage.removeItem("token");
+    token.value = "";
   }
 
   function logout() {

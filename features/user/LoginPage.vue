@@ -33,14 +33,14 @@ import { useUserStore } from "./useUserStore";
 type LoginForm = {
   email: string;
   password: string;
-  errors: null | [];
+  errors?: null | Record<string, string[]>;
 };
 
 const userStore = useUserStore();
 const form = reactive<LoginForm>({
   email: "",
   password: "",
-  errors: [],
+  errors: null,
 });
 const errorsList = computed(() => {
   return form.errors
@@ -51,9 +51,9 @@ const errorsList = computed(() => {
 async function onSubmit() {
   form.errors = null;
   const { email, password } = form;
-  const { data, error } = await userStore.login({ email, password });
-  if (error.value) {
-    form.errors = error.value?.data?.errors;
+  const { error } = await userStore.login({ email, password });
+  if (error) {
+    form.errors = error.data?.errors;
   }
 }
 </script>

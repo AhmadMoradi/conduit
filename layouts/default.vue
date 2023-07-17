@@ -1,4 +1,6 @@
 <template>
-  <MainHeader />
-  <slot />
+  <div>
+    <MainHeader />
+    <slot />
+  </div>
 </template>
