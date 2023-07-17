@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-7 p-2 rounded">
+  <div v-show="data" class="bg-gray-7 p-2 rounded min-w-[280px] max-w-[300px]">
     <h3 class="mb-2">Popular Tags</h3>
     <TagBadge
       v-for="tag in data?.tags"

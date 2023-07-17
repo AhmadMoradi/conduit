@@ -1,7 +1,7 @@
 <template>
   <IntroHeader />
-  <div class="container flex gap-8 items-start">
-    <div>
+  <div class="container flex gap-6 items-start justify-between">
+    <div class="">
       <div v-if="pending">Loading articles...</div>
       <div v-else>
         <div>

@@ -1,21 +1,20 @@
-import nuxtConfig from "nuxt.config";
 import type { LoginPayload, User } from "./types";
-import { FetchError } from "ofetch";
+import apiCaller from "~/utiles/apiCaller";
 
 type LoginAPIResponse = {
   user: User;
 };
 
 async function loginUser(payload: LoginPayload) {
-  return await $fetch<LoginAPIResponse>("/users/login", {
-    method: "post",
-    body: { user: payload },
-  })
-    .then((data) => ({ data, error: null }))
-    .catch((error: FetchError<{ errors: Record<string, string[]> }>) => ({
-      data: null,
-      error,
-    }));
+  return await apiCaller<
+    LoginAPIResponse,
+    { errors: Record<string, string[]> }
+  >(() =>
+    $fetch("/users/login", {
+      method: "post",
+      body: { user: payload },
+    })
+  );
 }
 
 async function registerUser(payload: {
@@ -23,22 +22,22 @@ async function registerUser(payload: {
   password: string;
   username: string;
 }) {
-  return $fetch<{
+  return apiCaller<{
     user: User;
-  }>("/users", {
-    method: "POST",
-    body: {
-      user: payload,
-    },
-  })
-    .then((data) => ({ data, error: null }))
-    .catch((error) => ({ data: null, error }));
+  }>(() =>
+    $fetch("/users", {
+      method: "POST",
+      body: {
+        user: payload,
+      },
+    })
+  );
 }
 
 async function getUser() {
-  return $fetch<{
+  return apiCaller<{
     user: User;
-  }>("/user");
+  }>(() => $fetch("/user"));
 }
 
 export default {

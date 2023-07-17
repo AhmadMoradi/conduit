@@ -21,26 +21,27 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const user = reactive<User>({ ...defaultUser });
-  const token = useCookie<string>("");
+  const token = useCookie<string>("token");
 
   const isUserLogin = computed(() => token.value);
 
   async function initialize() {
     if (token.value) {
       user.token = token.value;
-      await userService.getUser().then((data) => {
-        Object.assign(user, data?.user);
-      });
+      const { data } = await userService.getUser();
+      Object.assign(user, data?.user);
     }
   }
 
   async function login(payload: LoginPayload) {
     const { data, error } = await userService.loginUser(payload);
+
     if (!error) {
-      Object.assign(user, data);
+      Object.assign(user, data?.user);
       storeToken();
       navigateTo("/");
     }
+
     return { data, error };
   }
 
@@ -50,7 +51,7 @@ export const useUserStore = defineStore("user", () => {
     email: string;
   }) {
     const { data, error } = await userService.registerUser(payload);
-    if (!error.value) {
+    if (!error) {
       Object.assign(user, data?.user);
       storeToken();
       navigateTo("/");

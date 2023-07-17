@@ -21,7 +21,5 @@ if (!config.public.baseURL) {
   }
 }
 
-onBeforeMount(() => {
-  userStoer.initialize();
-});
+userStoer.initialize();
 </script>

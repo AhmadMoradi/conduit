@@ -1,5 +1,7 @@
 <template>
-  <div class="border border-gray-300 rounded overflow-hidden inline-flex">
+  <div
+    class="border border-gray-300 rounded overflow-hidden inline-flex flex-wrap"
+  >
     <button
       v-for="p in Math.ceil(props.totalItems / props.itemsPerPage)"
       :key="p"
