@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import tagsService from "~/services/tags";
+import homeService from "../homeService";
 
-const { data, error } = await tagsService.fetchAllTags();
+const { data, error } = await homeService.fetchAllTags();
 </script>
 
 <style scoped></style>

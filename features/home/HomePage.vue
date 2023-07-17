@@ -30,7 +30,7 @@ import Pagination from "./components/Pagination.vue";
 import ArticlePost from "./components/ArticlePost.vue";
 import PopularTag from "./components/PopularTag.vue";
 
-import articleService from "~/services/articles";
+import homeService from "./homeService";
 
 const itemsPerPage = 10;
 const currentPage = ref<number>(1);
@@ -41,9 +41,7 @@ const query = computed(() => {
   };
 });
 
-const { data, error, pending } = await articleService.fetchArticles(
-  query.value
-);
+const { data, error, pending } = await homeService.fetchArticles(query.value);
 </script>
 
 <style lang="postcss" scoped>
