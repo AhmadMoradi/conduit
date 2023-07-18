@@ -29,7 +29,8 @@
       />
 
       <button type="submit" class="self-end btn btn-primary btn-lg">
-        Sign up
+        <span v-if="isLoading">...</span>
+        <span v-else>Sign up</span>
       </button>
     </form>
   </div>
@@ -52,6 +53,7 @@ const form = reactive<RegisterForm>({
   password: "123456",
   errors: null,
 });
+const isLoading = ref<boolean>(false);
 
 const errorsList = computed(() => {
   return form.errors
@@ -60,11 +62,14 @@ const errorsList = computed(() => {
 });
 
 async function onSubmit() {
+  isLoading.value = true;
   form.errors = null;
-  const { data, error } = await userStore.register({ ...form });
-  if (error.value) {
-    form.errors = { ...error.value.data?.errors };
+  const { error } = await userStore.register({ ...form });
+  debugger;
+  if (error) {
+    form.errors = { ...error.data?.errors };
   }
+  isLoading.value = false;
 }
 </script>
 

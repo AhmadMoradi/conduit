@@ -3,13 +3,26 @@
     <span class="text-2xl font-bold text-green-1"> conduit </span>
     <nav class="text-gray-1 flex">
       <NuxtLink class="hover:text-gray-2" to="/">Home</NuxtLink>
-      <div v-if="userStore.isUserLogin" class="flex justify-between ml-4">
+      <div
+        v-if="userStore.isUserLogin"
+        class="flex justify-between items-center ml-4"
+      >
         <NuxtLink to="/editor"> New Article </NuxtLink>
         <NuxtLink to="/settings"> Settings </NuxtLink>
         <div class="flex justify-between items-center ml-4">
-          <img :src="userStore.user.image" class="rounded-full h-6 w-6 mr-1" />
+          <img
+            v-show="userStore.user.image"
+            :src="userStore.user.image"
+            class="rounded-full h-6 w-6 mr-1"
+          />
           {{ userStore.user.username }}
         </div>
+        <NuxtLink
+          to="/logout"
+          class="ml-2 text-sm text-red-1 border px-1 rounded border-red-1"
+        >
+          Logout
+        </NuxtLink>
       </div>
       <div v-else class="flex justify-between ml-4">
         <NuxtLink class="hover:text-gray-2" :to="{ name: 'login' }"

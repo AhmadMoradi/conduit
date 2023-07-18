@@ -21,7 +21,7 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const user = reactive<User>({ ...defaultUser });
-  const token = useCookie<string>("token");
+  const token = useCookie<string | undefined>("token");
 
   const isUserLogin = computed(() => token.value);
 
@@ -64,7 +64,7 @@ export const useUserStore = defineStore("user", () => {
   }
 
   function removeToken() {
-    token.value = "";
+    token.value = undefined;
   }
 
   function logout() {
