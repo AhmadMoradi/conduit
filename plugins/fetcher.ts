@@ -8,7 +8,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const instance = ofetch.create({
     baseURL,
     headers: {
-      ...(token && { Authorization: `Token ${token.value}` }),
+      ...(token.value && { Authorization: `Token ${token.value}` }),
     },
   });
 

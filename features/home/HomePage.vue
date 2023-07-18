@@ -41,7 +41,7 @@ const query = computed(() => {
   };
 });
 
-const { data, error, pending } = await homeService.fetchArticles(query.value);
+const { data, pending } = await homeService.fetchArticles(query);
 </script>
 
 <style lang="postcss" scoped>

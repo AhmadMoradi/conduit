@@ -2,9 +2,12 @@ function fetchAllTags() {
   return useLazyFetcher<{ tags: string[] }>("/tags");
 }
 
-function fetchArticles(payload: { offset: number; limit: number }) {
-  const { limit = 10, offset = 0 } = payload || {};
-
+function fetchArticles(
+  payload: ComputedRef<{
+    limit: number;
+    offset: number;
+  }>
+) {
   interface ArticlesAPIResponse {
     articles: Array<Article>;
     articlesCount: number;
@@ -12,10 +15,7 @@ function fetchArticles(payload: { offset: number; limit: number }) {
 
   return useLazyFetcher<ArticlesAPIResponse>("/articles", {
     baseURL: useRuntimeConfig().public.baseURL,
-    query: {
-      limit,
-      offset,
-    },
+    query: payload,
   });
 }
 

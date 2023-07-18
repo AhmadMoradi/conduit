@@ -8,7 +8,7 @@ export const useLazyFetcher: typeof useFetch = (url, opts) => {
   const defaulOpts = {
     baseURL: config.public?.baseURL,
     headers: {
-      ...(token && { Authorization: `Token ${token.value}` }),
+      ...(token.value && { Authorization: `Token ${token.value}` }),
     },
   };
   return useLazyFetch(url, defu(opts, defaulOpts));

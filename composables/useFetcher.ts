@@ -7,7 +7,7 @@ export const useFetcher: typeof useFetch = (url, opts) => {
   const defaulOpts = {
     baseURL: config.public?.baseURL,
     headers: {
-      ...(token && { Authorization: `Token ${token.value}` }),
+      ...(token.value && { Authorization: `Token ${token.value}` }),
     },
   };
   return useFetch(url, defu(opts, defaulOpts));
