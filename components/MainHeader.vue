@@ -3,7 +3,15 @@
     <span class="text-2xl font-bold text-green-1"> conduit </span>
     <nav class="text-gray-1 flex">
       <NuxtLink class="hover:text-gray-2" to="/">Home</NuxtLink>
-      <div class="flex justify-between ml-4">
+      <div v-if="userStore.isUserLogin" class="flex justify-between ml-4">
+        <NuxtLink to="/editor"> New Article </NuxtLink>
+        <NuxtLink to="/settings"> Settings </NuxtLink>
+        <div class="flex justify-between items-center ml-4">
+          <img :src="userStore.user.image" class="rounded-full h-6 w-6 mr-1" />
+          {{ userStore.user.username }}
+        </div>
+      </div>
+      <div v-else class="flex justify-between ml-4">
         <NuxtLink class="hover:text-gray-2" :to="{ name: 'login' }"
           >Sign in</NuxtLink
         >
@@ -17,7 +25,6 @@
 
 <script lang="ts" setup>
 import { useUserStore } from "~/features/user/useUserStore";
-
 const userStore = useUserStore();
 </script>
 
