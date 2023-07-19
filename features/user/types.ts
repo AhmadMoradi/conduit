@@ -6,7 +6,11 @@ export type LoginPayload = {
 export interface User {
   email: string;
   username: string;
-  bio: null | string;
+  bio: string;
   image: string;
   token: string;
+}
+
+export interface Settings extends Partial<Omit<User, "token">> {
+  password?: string;
 }

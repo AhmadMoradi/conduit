@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import userService from "./userService";
 
-import type { LoginPayload } from "./types";
+import type { LoginPayload, Settings } from "./types";
+import apiCaller from "~/utiles/apiCaller";
 
 interface User {
   email: string;
   username: string;
-  bio: string | null;
+  bio: string;
   image: string;
   token: string;
 }
@@ -15,22 +16,25 @@ export const useUserStore = defineStore("user", () => {
   const defaultUser = {
     email: "",
     username: "",
-    bio: null,
+    bio: "",
     image: "",
     token: "",
   };
 
   const user = reactive<User>({ ...defaultUser });
   const token = useCookie<string | undefined>("token");
+  const isUserInitialized = ref<boolean>(false);
 
   const isUserLogin = computed(() => token.value);
 
-  async function initialize() {
+  async function initialize(force: boolean = false) {
+    if (isUserInitialized.value && !force) return;
     if (token.value) {
       user.token = token.value;
       const { data } = await userService.getUser();
       Object.assign(user, data?.user);
     }
+    isUserInitialized.value = true;
   }
 
   async function login(payload: LoginPayload) {
@@ -72,6 +76,14 @@ export const useUserStore = defineStore("user", () => {
     removeToken();
   }
 
+  async function updateSettings(settings: Settings) {
+    const { data, error } = await userService.updateSettings(settings);
+    if (!error && data) {
+      Object.assign(user, data?.user);
+    }
+    return { data, error };
+  }
+
   return {
     user,
     isUserLogin,
@@ -79,5 +91,6 @@ export const useUserStore = defineStore("user", () => {
     login,
     register,
     logout,
+    updateSettings,
   };
 });

@@ -1,4 +1,4 @@
-import type { LoginPayload, User } from "./types";
+import type { LoginPayload, Settings, User } from "./types";
 import apiCaller from "~/utiles/apiCaller";
 
 type LoginAPIResponse = {
@@ -40,8 +40,18 @@ async function getUser() {
   }>(() => $fetch("/user"));
 }
 
+async function updateSettings(settings: Settings) {
+  return apiCaller<{ user: User }>(() =>
+    $fetch("/user", {
+      method: "PUT",
+      body: { user: settings },
+    })
+  );
+}
+
 export default {
   loginUser,
   registerUser,
   getUser,
+  updateSettings,
 };

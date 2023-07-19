@@ -16,6 +16,15 @@ interface Article {
   };
 }
 
+export interface User {
+  email: string;
+  username: string;
+  bio: null | string;
+  image: string;
+  token: string;
+}
+
 declare global {
   Article;
+  User;
 }
