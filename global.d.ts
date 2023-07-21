@@ -1,4 +1,4 @@
-interface Article {
+declare interface Article {
   slug: string;
   title: string;
   description: string;
@@ -16,15 +16,10 @@ interface Article {
   };
 }
 
-export interface User {
+declare interface User {
   email: string;
   username: string;
   bio: null | string;
   image: string;
   token: string;
-}
-
-declare global {
-  Article;
-  User;
 }

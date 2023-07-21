@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import userService from "./userService";
 
 import type { LoginPayload, Settings } from "./types";
-import apiCaller from "~/utiles/apiCaller";
 
 interface User {
   email: string;
@@ -81,8 +80,6 @@ export const useUserStore = defineStore("user", () => {
     const { data, error } = await userService.updateSettings(settings);
     if (!error && data) {
       Object.assign(user, data?.user);
-      console.log("old token", token.value);
-      console.log("new token", data?.user.token);
       token.value = data?.user.token;
     }
     return { data, error };
