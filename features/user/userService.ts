@@ -1,5 +1,7 @@
-import type { LoginPayload, Settings, User } from "./types";
+import { Article } from "global";
 import apiCaller from "~/utiles/apiCaller";
+
+import type { LoginPayload, NewArticleForm, Settings, User } from "./types";
 
 type LoginAPIResponse = {
   user: User;
@@ -49,9 +51,26 @@ async function updateSettings(settings: Settings) {
   );
 }
 
+async function createArticle(form: NewArticleForm) {
+  return apiCaller<
+    {
+      article: Article;
+    },
+    { errors: Record<string, string[]> }
+  >(() =>
+    $fetch("/articles", {
+      method: "POST",
+      body: {
+        article: form,
+      },
+    })
+  );
+}
+
 export default {
   loginUser,
   registerUser,
   getUser,
   updateSettings,
+  createArticle,
 };

@@ -14,3 +14,12 @@ export interface User {
 export interface Settings extends Partial<Omit<User, "token">> {
   password?: string;
 }
+
+export interface NewArticleForm {
+  title: string;
+  description: string;
+  body: string;
+  tagListStr?: string;
+  tagList?: string[];
+  errors?: null | Record<string, string[]>;
+}
