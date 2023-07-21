@@ -33,7 +33,10 @@
         placeholder="Enter tags"
         class="input w-full !text-base"
       />
-      <button class="btn btn-primary self-end">Publish Article</button>
+      <button class="btn btn-primary self-end">
+        <span v-if="isLoading">...</span>
+        <span v-else> Publish Article </span>
+      </button>
     </form>
   </div>
 </template>
@@ -68,6 +71,5 @@ async function onSubmit() {
   } else {
     form.errors = error?.data?.errors;
   }
-  isLoading.value = false;
 }
 </script>
