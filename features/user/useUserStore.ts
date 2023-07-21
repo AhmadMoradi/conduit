@@ -57,6 +57,7 @@ export const useUserStore = defineStore("user", () => {
     const { data, error } = await userService.registerUser(payload);
     if (!error) {
       Object.assign(user, data?.user);
+      token.value = user.token;
       storeToken();
       navigateTo("/");
     }
@@ -80,6 +81,9 @@ export const useUserStore = defineStore("user", () => {
     const { data, error } = await userService.updateSettings(settings);
     if (!error && data) {
       Object.assign(user, data?.user);
+      console.log("old token", token.value);
+      console.log("new token", data?.user.token);
+      token.value = data?.user.token;
     }
     return { data, error };
   }

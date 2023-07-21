@@ -63,7 +63,6 @@ const isLoading = ref<boolean>(false);
 async function onSubmit() {
   isLoading.value = true;
   const { data, error } = await userStore.updateSettings(form);
-  console.log({ ...data });
   isLoading.value = false;
 }
 </script>

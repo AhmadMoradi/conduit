@@ -5,7 +5,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     public: { baseURL },
   } = useRuntimeConfig();
   const token = useCookie<string>("token");
-  debugger;
   const instance = ofetch.create({
     baseURL,
     headers: {

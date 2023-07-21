@@ -11,7 +11,7 @@
         <NuxtLink to="/settings"> Settings </NuxtLink>
         <div class="flex justify-between items-center ml-4">
           <img
-            v-show="userStore.user.image"
+            v-if="userStore.user.image"
             :src="userStore.user.image"
             class="rounded-full h-6 w-6 mr-1"
           />
