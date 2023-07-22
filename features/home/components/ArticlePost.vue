@@ -18,17 +18,21 @@
       </button>
     </div>
 
-    <a href="">
+    <NuxtLink :to="`/article/${props.article.slug}`">
       <h2 class="font-semibold text-2xl">{{ props.article.title }}</h2>
       <p class="text-gray-5">{{ props.article.description }}</p>
-    </a>
+    </NuxtLink>
     <div class="flex items-center justify-between">
-      <a class="!text-gray-5 !text-xs">Read more...</a>
-      <a>
+      <NuxtLink
+        :to="`/article/${props.article.slug}`"
+        class="!text-gray-5 !text-xs"
+        >Read more...</NuxtLink
+      >
+      <NuxtLink :to="`/article/${props.article.slug}`">
         <TagBadge v-for="tag in props.article.tagList" :key="tag">{{
           tag
         }}</TagBadge>
-      </a>
+      </NuxtLink>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 const colors = {
   black: {
     1: "var(--black-1)",
+    2: "var(--black-2)",
   },
   gray: {
     0: "var(--gray-0)",
