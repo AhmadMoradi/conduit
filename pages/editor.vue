@@ -4,4 +4,8 @@
 
 <script setup lang="ts">
 import EditorPage from "~/features/user/EditorPage.vue";
+
+definePageMeta({
+  middleware: ["auth"],
+});
 </script>
