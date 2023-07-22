@@ -24,12 +24,11 @@
 <script lang="ts" setup>
 import articleService from "../articleService";
 
-const props = defineProps({
-  article: {
-    type: Object,
-    required: true,
-  },
-});
+type Props = {
+  article: Article | undefined;
+};
+
+const props = defineProps<Props>();
 const form = reactive<{
   body: string;
   errors?: null | Record<string, string[]>;
@@ -46,11 +45,13 @@ const errorsList = computed(() => {
 async function onSubmit() {
   isLoading.value = true;
   const { data, error } = await articleService.postComment({
-    slug: props.article.slug,
+    slug: props.article?.slug!,
     body: form.body,
   });
   if (error) {
     form.errors = error?.data;
+  } else {
+    form.body = "";
   }
   isLoading.value = false;
 }

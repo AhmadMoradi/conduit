@@ -12,6 +12,7 @@ const colors = {
     5: "var(--gray-5)",
     6: "var(--gray-6)",
     7: "var(--gray-7)",
+    10: "var(--gray-10)",
   },
   green: {
     1: "var(--green-1)",

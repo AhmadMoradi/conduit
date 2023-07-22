@@ -26,6 +26,7 @@
     <div v-if="userStore.isUserLogin" class="container mt-8">
       <CommentForm :article="article" class="mt-8 w-8/12 mx-auto" />
     </div>
+    <CommentsList :article="article" />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import CommentForm from "./components/CommentForm.vue";
 
 import articleService from "./articleService";
 import { useUserStore } from "~/features/user/useUserStore";
+import CommentsList from "./components/CommentsList.vue";
 
 const userStore = useUserStore();
 const route = useRoute();
@@ -42,7 +44,7 @@ const { data, error } = await articleService.fetchArticle(
 );
 
 const article = computed(() => {
-  return data?.article;
+  return data?.value?.article;
 });
 </script>
 
